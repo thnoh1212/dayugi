@@ -1,0 +1,54 @@
+﻿주소,설명,HTTP Method,Request,Parameter,Return,비고,작업현황
+user,유저 관련 API,,,,,,
+/user/check?userEmail=,유저 이메일 중복 체크 API,GET,RequestParam,유저 이메일,ResponseEntity,,
+/user/join,"자신의 유저 정보 생성 API
+(회원가입)",POST,RequestBody,회원정보,ResponseEntity,다육이 테이블에 정보 같이 추가,
+/user,로그인,POST,RequestBody,"아이디, 비밀번호",ResponseEntity,,
+/user,"자신의 유저 정보 삭제 API
+(회원탈퇴)",DELETE,RequestHeader,jwt토큰,ResponseEntity,해당 id와 연결된 다육이 삭제,
+/user,"자신의 유저 정보 수정 API
+(회원 정보 수정)",PUT,"RequestBody, RequestHeader","jwt토큰
+변경 사항",ResponseEntity,,
+/user,"자신의 유저 정보 조회 API
+(프로필, 인증)",GET,RequestHeader,jwt토큰,ResponseEntity,,
+,,,,,,,
+email,이메일 관련 API,,,,,,
+/email/mail?userEmail=,인증 메일 요청 API,POST,RequestParam,email,ResponseEntity,,
+/email/password?userEmail=,비밀번호 초기화 API,POST,RequestParam,비밀번호 초기화할 유저 이메일,ResponseEntity,,
+,,,,,,,
+diary,다이어리 관련 API,,,,,,
+"/diary
+",다이어리 작성,POST,"RequestBody, RequestHeader","JWT
+작성 일기 내용",ResponseEntity,다육이 경험치 증가,
+"/diary
+",다이어리 수정,PUT,"RequestBody, RequestHeader","JWT 토큰
+수정 일기 내용",ResponseEntity,,
+"/diary/{did}
+",다이어리 삭제,DELETE,"RequestHeader, RequestParam","JWT 토큰
+일기 아이디",ResponseEntity,,
+"/diary
+",다이어리 상세or전체 조회,GET,RequestBody,"유저 아이디
+일기 아이디",ResponseEntity,"did==-1 → 전체조회
+상세조회→ 감정, 한줄평, ",
+"/diary/monthly
+",다이어리 월별 조회,GET,RequestBody,"조회할 년-월
+유저 아이디",ResponseEntity,,
+,,,,,,,
+plant,식물  관련 API,,,,,,
+/plant,다육이 정보조회,GET,RequestParam,유저 아이디,ResponseEntity,,
+/plant,다육이 이름 수정,PUT,RequestParam,"식물 아이디
+수정할 이름",ResponseEntity,,
+/plant/event,다육이 이벤트 이력 조회,GET,RequestParam,식물 아이디,ResponseEntity,,
+그 외 추가기능+,,,,,,,
+,,,,,,,
+—— v 2.0 ——————————,————————————,,,,,,
+emotion,감정 관련 API,,,,,,
+/emtion,감정 그래프용 정보 조회,GET,,"유저 아이디
+조회할 년-월
+기간(1주, 2주, 한달, 전체)",,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,

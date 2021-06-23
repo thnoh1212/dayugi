@@ -1,0 +1,32 @@
+pipeline {
+    agent none
+    options { skipDefaultCheckout(true) }
+    stages {
+        stage('Build and Test') {
+            agent {
+                docker {
+                    image 'python:3.8.5'
+                }
+            }
+            options { skipDefaultCheckout(false) }
+            steps {
+                sh 'pip install -r ML/requirements.txt'
+            }
+        }
+         stage('Docker build') {
+            agent any
+            steps {
+                sh 'docker build -t flask-image:latest ./ML'
+            }
+        }
+        stage('Docker run') {
+            agent any
+            steps {
+                sh 'docker ps -f name=flask-image-container -q | xargs --no-run-if-empty docker container stop'
+                sh 'docker container ls -a -fname=flask-image-container -q | xargs -r docker container rm'
+                sh 'docker rmi $(docker images -f "dangling=true" -q)'
+                sh 'docker run -d --name flask-image-container -p 5000:5000 flask-image:latest'
+            }
+        }
+    }
+}
